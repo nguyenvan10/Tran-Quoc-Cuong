@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trần Quốc Cường | Portfolio Năng Lực Số</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        /*
+        ==========================================================================
+           LIGHT GLASSMORPHISM THEME - PEACH ORANGE & SKY BLUE
+        ==========================================================================
+        */
+        :root {
+            /* Nền Gradient Cam nhẹ và Xanh da trời */
+            --bg-body-start: #FFE8D6; 
+            --bg-body-end: #D6EAF8;
+            
+            /* Tấm kính mờ (Thẻ) sáng màu */
+            --bg-card: rgba(255, 255, 255, 0.45); 
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-border-hover: rgba(255, 154, 139, 0.6);
+            
+            /* Bảng màu chữ dành cho nền sáng */
+            --text-main: #2C3E50; 
+            --text-muted: #5D6D7E; 
+            
+            /* Màu nhấn ngọt ngào */
+            --accent-light: #FF7B66; /* Cam đào đậm (chữ/icon) */
+            --accent-gradient: linear-gradient(90deg, #FF9A8B, #85C1E9); /* Gradient Nút bấm */
+            
+            /* Bóng đổ bồng bềnh */
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 15px 40px rgba(255, 154, 139, 0.2);
+            
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, var(--bg-body-start) 0%, var(--bg-body-end) 100%);
+            background-attachment: fixed;
+            color: var(--text-main); 
+            line-height: 1.6; 
+            scroll-behavior: smooth; 
+            overflow-x: hidden;
+        }
+
+        /* TẠO HIỆU ỨNG ÁNH SÁNG MỜ ẢO PHÍA SAU */
+        body::before {
+            content: ''; position: fixed; top: -10%; right: -10%; width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+            z-index: -2; pointer-events: none;
+        }
+
+        /* HỌA TIẾT TRANG TRÍ (HOA, LÁ, CHIM, MÂY) */
+        .decor-item {
+            position: fixed; z-index: -1; opacity: 0.7;
+            animation: float-around 20s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes float-around {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(15deg); }
+            100% { transform: translateY(15px) rotate(-10deg); }
+        }
+
+        /* NAVBAR */
+        .navbar { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 40px; background: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 100; 
+            border-bottom: 1px solid var(--glass-border); 
+        }
+        .nav-brand { font-size: 20px; font-weight: 800; color: var(--text-main); letter-spacing: 1px;}
+        .nav-brand span { color: var(--accent-light); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { font-size: 14px; font-weight: 600; color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-light); }
+
+        /* BỐ CỤC CHUNG */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 40px; }
+        
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* HERO SECTION */
+        .hero-grid { display: grid; grid-template-columns: 350px 1fr; gap: 40px; align-items: center; }
+
+        /* Glass Card Chung */
+        .glass-card {
+            background: var(--bg-card); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); 
+            border-radius: var(--radius-lg); 
+            box-shadow: var(--shadow-soft); 
+            transition: var(--transition);
+        }
+
+        .id-card { overflow: hidden; }
+        .id-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--glass-border-hover); }
+        
+        .avatar-box { position: relative; height: 320px; width: 100%; overflow: hidden;}
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .id-card:hover .avatar-box img { transform: scale(1.05); }
+        
+        .status-badge { 
+            position: absolute; bottom: 15px; left: 15px; background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 20px; 
+            font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .status-badge .dot { width: 10px; height: 10px; background: #FF9A8B; border-radius: 50%; box-shadow: 0 0 10px #FF9A8B; }
+        
+        .id-info { padding: 25px; }
+        .id-info h1 { font-size: 26px; color: var(--accent-light); margin-bottom: 5px; line-height: 1.2; }
+        .id-info .role { font-size: 14px; color: var(--text-muted); font-weight: 500; margin-bottom: 20px;}
+        .id-info ul { list-style: none; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px;}
+        .id-info li { font-size: 13px; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-weight: 500;}
+
+        /* Bản tuyên ngôn */
+        .hero-vision { padding: 20px 0; }
+        .pills { display: flex; gap: 10px; margin-bottom: 20px; }
+        .pill-blue { background: rgba(133, 193, 233, 0.2); color: #2874A6; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(133, 193, 233, 0.4);}
+        .pill-orange { background: rgba(255, 154, 139, 0.15); color: var(--accent-light); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid rgba(255, 154, 139, 0.3);}
+        
+        .hero-vision h2 { font-size: 40px; color: var(--text-main); margin-bottom: 25px; line-height: 1.3; font-weight: 800;}
+        .text-gradient { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-vision p { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+
+        /* Nút bấm */
+        .actions { display: flex; gap: 15px; margin-top: 30px; }
+        .btn-primary {
+            background: var(--accent-gradient); color: #FFF; padding: 14px 28px; 
+            border-radius: 30px; font-size: 13px; font-weight: 800; text-decoration: none; 
+            transition: var(--transition); box-shadow: 0 8px 20px rgba(255, 154, 139, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 25px rgba(255, 154, 139, 0.5); color: #FFF;}
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.5); color: var(--text-main); padding: 14px 28px; 
+            border-radius: 30px; border: 1px solid var(--accent-light); font-size: 13px; font-weight: 700; 
+            text-decoration: none; transition: var(--transition); 
+        }
+        .btn-outline:hover { background: var(--accent-light); color: #FFF; transform: translateY(-3px); }
+
+        /* MODULES GRID */
+        .section-heading { font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;}
+        .section-heading span { color: var(--accent-light); font-size: 18px; }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        
+        .module-card { padding: 30px; position: relative; display: flex; flex-direction: column; gap: 12px; cursor: pointer; z-index: 1; }
+        .module-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--glass-border-hover); background: rgba(255, 255, 255, 0.65);}
+        
+        .watermark {
+            position: absolute; top: 15px; left: 25px; font-size: 55px; 
+            font-weight: 800; color: rgba(0, 0, 0, 0.03); line-height: 1; z-index: 0;
+            transition: var(--transition);
+        }
+        .module-card:hover .watermark { color: rgba(255, 154, 139, 0.1); transform: scale(1.05) translateX(5px); }
+        
+        .card-header { display: flex; justify-content: flex-end; z-index: 2; margin-bottom: 10px;}
+        .status-pill { background: rgba(255, 154, 139, 0.15); color: var(--accent-light); font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 20px; letter-spacing: 0.5px; border: 1px solid rgba(255, 154, 139, 0.3);}
+        
+        .module-title { font-size: 17px; color: var(--text-main); font-weight: 800; z-index: 2; margin-top: 5px;}
+        .module-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; z-index: 2; flex-grow: 1; text-align: justify; }
+        
+        .btn-detail { background: none; border: none; color: var(--text-main); font-weight: 700; font-size: 13px; text-align: left; cursor: pointer; z-index: 2; transition: var(--transition); padding: 0;}
+        .module-card:hover .btn-detail { color: var(--accent-light); transform: translateX(5px); }
+
+        /* CLOUD DRAWER */
+        .pod { padding: 40px; }
+        .pod-title { font-size: 14px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; font-weight: 700; letter-spacing: 1px;}
+        .pod-title span { color: var(--accent-light); font-size: 18px; }
+        .pod-subtitle { font-size: 22px; margin-bottom: 25px; color: var(--text-main); font-weight: 800;}
+
+        .file-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .file-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 16px; background: rgba(255,255,255,0.4); border: 1px dashed rgba(0,0,0,0.15); 
+            border-radius: var(--radius-md); font-size: 13px; font-weight: 700; 
+            color: var(--text-main); transition: var(--transition); text-decoration: none;
+        }
+        .file-btn:hover { 
+            background: rgba(255, 154, 139, 0.1); border-style: solid; border-color: var(--accent-light); 
+            color: var(--accent-light); box-shadow: var(--shadow-hover); transform: translateY(-3px);
+        }
+
+        /* PHẦN KẾT - LỜI THÌ THẦM */
+        .conclusion-box {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            text-align: center;
+            border: 1px dashed var(--accent-light);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .conclusion-box h2 {
+            font-family: 'Lora', serif;
+            font-size: 34px;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        .conclusion-box p {
+            font-size: 15px;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+            line-height: 1.8;
+            font-weight: 500;
+            text-align: justify;
+        }
+        .conclusion-box .signature {
+            margin-top: 30px;
+            font-size: 18px;
+            color: var(--accent-light);
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* MODAL CHI TIẾT */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .modal-content { 
+            background: rgba(255, 255, 255, 0.95); border: 1px solid var(--glass-border-hover);
+            margin: 5% auto; padding: 40px; border-radius: var(--radius-lg); width: 90%; max-width: 700px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1); position: relative; animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 85vh; overflow-y: auto;
+        }
+        @keyframes modalPop { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .close-btn { position: absolute; right: 30px; top: 30px; width: 32px; height: 32px; background: rgba(0,0,0,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; color: var(--accent-light); cursor: pointer; transition: var(--transition); border: none;}
+        .close-btn:hover { background: var(--accent-light); color: #FFF; transform: rotate(90deg); }
+
+        .modal-sub { font-size: 12px; color: var(--accent-light); font-weight: 700; margin-bottom: 5px; text-transform: uppercase;}
+        .modal-main-title { font-size: 24px; color: var(--text-main); margin-bottom: 5px; font-weight: 800;}
+        .modal-context { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+
+        .log-title { font-size: 13px; font-weight: 700; margin-bottom: 15px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .log-item { background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05); padding: 16px 20px; border-radius: 12px; margin-bottom: 12px; font-size: 14px; color: var(--text-main); line-height: 1.6; transition: var(--transition); border-left: 4px solid var(--accent-light); text-align: justify; }
+        .log-item:hover { background: #FFF; border-color: rgba(255, 154, 139, 0.4); box-shadow: var(--shadow-soft); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-grid, .grid-3, .file-grid { grid-template-columns: 1fr; }
+            .avatar-box { height: 350px; }
+            .hero-vision h2 { font-size: 32px; }
+            .conclusion-box { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ĐỒ HỌA TRANG TRÍ MỀM MẠI, ĐÁNG YÊU -->
+    <div class="decor-item" style="top: 10%; left: 5%; font-size: 40px; animation-duration: 15s;">🌸</div>
+    <div class="decor-item" style="top: 25%; right: 8%; font-size: 45px; animation-duration: 20s; animation-delay: -3s;">🕊️</div>
+    <div class="decor-item" style="top: 65%; left: 10%; font-size: 35px; animation-duration: 18s; animation-delay: -7s;">🍃</div>
+    <div class="decor-item" style="top: 75%; right: 12%; font-size: 40px; animation-duration: 22s; animation-delay: -5s;">🌼</div>
+    <div class="decor-item" style="top: 40%; left: 50%; font-size: 55px; animation-duration: 25s; opacity: 0.4;">☁️</div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-brand">QUỐC CƯỜNG<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">Giới thiệu</a></li>
+            <li><a href="#modules">Câu chuyện cá nhân</a></li>
+            <li><a href="#cloud">Minh chứng</a></li>
+            <li><a href="#conclusion">Kết luận</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        
+        <!-- HERO SECTION -->
+        <section id="hero" class="hero-grid fade-up">
+            <!-- Thẻ ID -->
+            <div class="id-card glass-card">
+                <div class="avatar-box">
+                    <img src="avatar.jpg" alt="Trần Quốc Cường">
+                    <div class="status-badge"><span class="dot"></span> Tích cực & Chăm chỉ</div>
+                </div>
+                <div class="id-info">
+                    <h1>Trần Quốc Cường</h1>
+                    <p class="role">Sinh viên Kinh tế Phát triển</p>
+                    <ul>
+                        <li>🎓 Trường Đại học Kinh tế - ĐHQGHN</li>
+                        <li>🆔 Mã SV: 25050505</li>
+                        <li>✉️ Cầu tiến & Sẵn sàng học hỏi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tuyên ngôn cá nhân -->
+            <div class="hero-vision">
+                <div class="pills">
+                    <span class="pill-blue">VNU-UEB</span>
+                    <span class="pill-orange">✓ Không ngừng phát triển</span>
+                </div>
+                <h2>Góc Nhỏ Trưởng Thành <br>Cùng <span class="text-gradient">Tư Duy Số</span></h2>
+                <p>Xin chào! Mình là Trần Quốc Cường. Mình là người luôn thích học hỏi những điều mới mẻ và không ngừng nỗ lực để hoàn thành xuất sắc mọi nhiệm vụ được giao. Hành trình đại học với mình là một cơ hội tuyệt vời để mở rộng tri thức, rèn luyện tư duy và định hình bản thân.</p>
+                <p>Trong tương lai, mình khao khát trở thành một chuyên gia có chuyên môn vững vàng về Kinh tế phát triển, đủ bản lĩnh để phân tích các vấn đề kinh tế phức tạp và đóng góp những giá trị thiết thực cho sự tiến bộ của xã hội. Chào mừng bạn đến với không gian lưu giữ hành trình của mình!</p>
+                <div class="actions">
+                    <a href="#modules" class="btn-primary">KHÁM PHÁ CÂU CHUYỆN</a>
+                    <a href="#cloud" class="btn-outline">XEM BÁO CÁO DỰ ÁN</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULES (6 THÔNG TIN CÁ NHÂN CỦA QUỐC CƯỜNG) -->
+        <section id="modules" class="fade-up">
+            <h3 class="section-heading"><span>✨</span> BỨC TRANH BẢN THÂN</h3>
+            
+            <div class="grid-3">
+                <div class="module-card glass-card" onclick="openModal('01')">
+                    <div class="watermark">01</div>
+                    <div class="card-header"><span class="status-pill">SỞ THÍCH</span></div>
+                    <h4 class="module-title">Đam mê & Khám phá</h4>
+                    <p class="module-desc">Đọc sách để mở rộng kiến thức, rèn luyện tư duy và luôn sẵn sàng trải nghiệm những điều mới mẻ.</p>
+                    <button class="btn-detail">Xem chi tiết →</button>
+                </div>
+
+                <div class="module-card glass-card" onclick="openModal('02')">
+                    <div class="watermark">02</div>
+                    <div class="card-header"><span class="status-pill">CÂN BẰNG</span></div>
+                    <h4 class="module-title">Giai điệu cuộc sống</h4>
+                    <p class="module-desc">Sắp xếp thời gian hợp lý giữa học tập và giải trí để luôn giữ tinh thần thoải mái, đạt hiệu quả cao.</p>
+                    <button class="btn-detail">Xem chi tiết →</button>
+                </div>
+
+                <div class="module-card glass-card" onclick="openModal('03')">
+                    <div class="watermark">03</div>
+                    <div class="card-header"><span class="status-pill">KẾ HOẠCH</span></div>
+                    <h4 class="module-title">Đặt mục tiêu học tập</h4>
+                    <p class="module-desc">Chia nhỏ mục tiêu lớn để dễ dàng thực hiện, lập kế hoạch hàng tuần và chủ động tìm kiếm sự hỗ trợ.</p>
+                    <button class="btn-detail">Xem chi tiết →</button>
+                </div>
+
+                <div class="module-card glass-card" onclick="openModal('04')">
+                    <div class="watermark">04</div>
+                    <div class="card-header"><span class="status-pill">RÈN LUYỆN</span></div>
+                    <h4 class="module-title">Trang bị Kỹ năng</h4>
+                    <p class="module-desc">Phát triển toàn diện từ tin học văn phòng, kỹ năng làm việc nhóm đến việc ứng dụng sức mạnh của công cụ AI.</p>
+                    <button class="btn-detail">Xem chi tiết →</button>
+                </div>
+
+                <div class="module-card glass-card" onclick="openModal('05')">
+                    <div class="watermark">05</div>
+                    <div class="card-header"><span class="status-pill">TƯƠNG LAI</span></div>
+                    <h4 class="module-title">Hướng phát triển</h4>
+                    <p class="module-desc">Trở thành nhân sự có chuyên môn vững về Kinh tế phát triển, đóng góp trí tuệ cho sự đi lên của xã hội.</p>
+                    <button class="btn-detail">Xem chi tiết →</button>
+                </div>
+
+                <div class="module-card glass-card" onclick="openModal('06')">
+                    <div class="watermark">06</div>
+                    <div class="card-header"><span class="status-pill">PORTFOLIO</span></div>
+                    <h4 class="module-title">Lưu giữ hành trình</h4>
+                    <p class="module-desc">Nơi gói ghém lại những nỗ lực, những dự án đã qua để tự nhìn nhận và đánh giá sự trưởng thành của bản thân.</p>
+                    <button class="btn-detail">Xem chi tiết →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLOUD DRAWER (KHO LƯU TRỮ BÀI TẬP GẮN TÊN LÊ HOÀNG DŨNG THEO ĐÚNG YÊU CẦU ƯU TIÊN) -->
+        <section id="cloud" class="pod glass-card fade-up">
+            <h3 class="pod-title"><span>📁</span> KHO LƯU TRỮ HỌC LIỆU</h3>
+            <h4 class="pod-subtitle">| Báo Cáo Dự Án Thành Phần (PDF)</h4>
+            <div class="file-grid">
+                <a href="BÀI_TẬP_TUẦN_1.pdf" class="file-btn" target="_blank">📄 Báo cáo Dự án Tuần 1 - Lê Hoàng Dũng</a>
+                <a href="BÀI_TẬP_TUẦN_2.pdf" class="file-btn" target="_blank">📄 Báo cáo Dự án Tuần 2 - Lê Hoàng Dũng</a>
+                <a href="BÀI_TẬP_TUẦN_3.pdf" class="file-btn" target="_blank">📄 Báo cáo Dự án Tuần 3 - Lê Hoàng Dũng</a>
+                <a href="BÀI_TẬP_TUẦN_4.pdf" class="file-btn" target="_blank">📄 Báo cáo Dự án Tuần 4 - Lê Hoàng Dũng</a>
+                <a href="BÀI_TẬP_TUẦN_5.pdf" class="file-btn" target="_blank">📄 Báo cáo Dự án Tuần 5 - Lê Hoàng Dũng</a>
+                <a href="BÀI_TẬP_TUẦN_6.pdf" class="file-btn" target="_blank">📄 Báo cáo Dự án Tuần 6 - Lê Hoàng Dũng</a>
+            </div>
+        </section>
+
+        <!-- PHẦN KẾT - LỜI THÌ THẦM -->
+        <section id="conclusion" class="conclusion-box fade-up">
+            <h2>Lời Thì Thầm Cuối Trang <span>🕊️</span></h2>
+            <div class="conclusion-content">
+                <p>Lý do mình tạo dựng và giữ lại chiếc portfolio này là để lưu lại toàn bộ hành trình học tập và rèn luyện của bản thân. Nơi đây sẽ như một cuốn nhật ký số hóa, gói ghém lại những bài tập, những báo cáo dự án và những sự cố gắng không ngừng nghỉ trong suốt quá trình theo học môn Nhập môn Công nghệ số.</p>
+                <p>Nhờ góc nhỏ này, mình có thể dễ dàng nhìn nhận lại sự tiến bộ của bản thân qua từng giai đoạn, nhận ra những thiếu sót để khắc phục, đồng thời tự tiếp thêm sức mạnh và động lực cho những chặng đường phía trước.</p>
+                <p class="signature">Cảm ơn bạn đã ghé thăm!<br>Trần Quốc Cường</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL CHI TIẾT TỪNG MỤC -->
+    <div id="logModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <p id="modal-subtitle" class="modal-sub"></p>
+            <h3 id="modal-title" class="modal-main-title"></h3>
+            <p class="modal-context">Chia sẻ từ: <span id="modal-context"></span></p>
+            <h4 class="log-title">| MÔ TẢ CHI TIẾT</h4>
+            <div id="modal-logs"></div>
+        </div>
+    </div>
+
+    <!-- Ẩn các trích dẫn nguồn để tối ưu giao diện -->
+    <span style="display:none;"></span>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Cuộn mượt và kích hoạt menu
+        document.querySelectorAll('.nav-links a, .actions a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId.startsWith('#')) {
+                    document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+                    if(!this.classList.contains('btn-primary') && !this.classList.contains('btn-outline')) {
+                        this.classList.add('active');
+                    }
+                    window.scrollTo({
+                        top: document.querySelector(targetId).offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Hiệu ứng Fade-up khi cuộn
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const appearObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        fadeElements.forEach(el => appearObserver.observe(el));
+
+        // Dữ liệu cá nhân trích xuất từ Trần Quốc Cường
+        const logsData = {
+            '01': {
+                subtitle: "GÓC NHÌN SỐ 01", title: "Sở thích & Trải nghiệm", context: "Trần Quốc Cường",
+                logs: [
+                    "Mình là người thích học hỏi những điều mới và luôn cố gắng hoàn thành tốt các nhiệm vụ được giao.", 
+                    "Trong thời gian rảnh, mình thường đọc sách để mở rộng kiến thức và rèn luyện tư duy logic.", 
+                    "Mình hy vọng trong những năm đại học sẽ tích lũy được nhiều kiến thức chuyên môn, kỹ năng thực tế và có thêm nhiều trải nghiệm để chuẩn bị hành trang vững chắc cho công việc sau này."
+                ]
+            },
+            '02': {
+                subtitle: "GÓC NHÌN SỐ 02", title: "Cân bằng cuộc sống", context: "Trần Quốc Cường",
+                logs: [
+                    "Ngoài thời gian học, mình thường dành thời gian đọc sách, nghe nhạc và nghỉ ngơi để xua tan mệt mỏi và giảm bớt căng thẳng.", 
+                    "Việc đọc sách giúp mình có thêm vô vàn kiến thức thú vị, mở rộng góc nhìn nhân sinh quan và tạo động lực to lớn trong học tập.", 
+                    "Mình luôn cố gắng sắp xếp thời gian khoa học, hợp lý giữa việc học tập và giải trí để giữ cho bản thân một tinh thần thoải mái, từ đó đạt hiệu suất cao nhất."
+                ]
+            },
+            '03': {
+                subtitle: "GÓC NHÌN SỐ 03", title: "Đặt mục tiêu học tập", context: "Trần Quốc Cường",
+                logs: [
+                    "Bí quyết của mình là thường chia một mục tiêu lớn thành những mục tiêu nhỏ gọn gàng hơn để dễ dàng thực hiện từng bước một.", 
+                    "Mỗi tuần mình đều lập kế hoạch học tập chi tiết, nỗ lực hoàn thành bài tập đúng thời hạn và ôn lại những kiến thức cốt lõi đã học trên lớp.", 
+                    "Khi gặp khó khăn, mình không ngại ngần mà chủ động tìm kiếm các tài liệu bổ sung, hoặc hỏi ngay thầy cô và bạn bè để tháo gỡ khúc mắc kịp thời."
+                ]
+            },
+            '04': {
+                subtitle: "GÓC NHÌN SỐ 04", title: "Kỹ năng đang tập rèn", context: "Trần Quốc Cường",
+                logs: [
+                    "Thông qua các môn học tại trường, mình đang tích cực rèn luyện các kỹ năng thiết yếu như: Sử dụng Microsoft Word, PowerPoint và Excel.", 
+                    "Nâng cao khả năng tìm kiếm, phân tích và chọn lọc thông tin chất lượng trên Internet.", 
+                    "Phát triển kỹ năng làm việc nhóm, kỹ năng thuyết trình tự tin trước đám đông.",
+                    "Đặc biệt, mình đang tập làm chủ các công cụ AI để hỗ trợ học tập thông minh, song song với việc nâng cao kỹ năng quản lý thời gian và lập kế hoạch."
+                ]
+            },
+            '05': {
+                subtitle: "GÓC NHÌN SỐ 05", title: "Hướng phát triển tương lai", context: "Trần Quốc Cường",
+                logs: [
+                    "Trong tương lai, mình mong muốn trở thành một chuyên gia có nền tảng chuyên môn vững chắc về lĩnh vực Kinh tế phát triển.", 
+                    "Trang bị khả năng phân tích nhạy bén các vấn đề kinh tế thực tiễn, từ đó đóng góp những giá trị tích cực cho sự phát triển của xã hội.", 
+                    "Bên cạnh kiến thức chuyên ngành, mình cũng lên kế hoạch trau dồi mạnh mẽ các kỹ năng ngoại ngữ, tin học và giao tiếp để đáp ứng tốt nhất yêu cầu khắt khe của công việc."
+                ]
+            },
+            '06': {
+                subtitle: "GÓC NHÌN SỐ 06", title: "Giá trị của Portfolio", context: "Trần Quốc Cường",
+                logs: [
+                    "Lý do mình tạo dựng và giữ lại chiếc portfolio này là để lưu lại toàn bộ hành trình học tập và rèn luyện của bản thân.", 
+                    "Đây sẽ là cuốn nhật ký số hóa ghi lại những bài tập, những báo cáo dự án và những sự cố gắng không ngừng nghỉ.", 
+                    "Nhờ nó, mình có thể dễ dàng nhìn nhận lại sự tiến bộ của bản thân qua từng giai đoạn và tiếp thêm sức mạnh cho những chặng đường phía trước."
+                ]
+            }
+        };
+
+        const modal = document.getElementById("logModal");
+        function openModal(weekKey) {
+            const data = logsData[weekKey];
+            if(data) {
+                document.getElementById("modal-subtitle").innerText = data.subtitle;
+                document.getElementById("modal-title").innerText = data.title;
+                document.getElementById("modal-context").innerText = data.context;
+                
+                const logsContainer = document.getElementById("modal-logs");
+                logsContainer.innerHTML = ""; 
+                data.logs.forEach(log => {
+                    const div = document.createElement("div");
+                    div.className = "log-item"; div.innerText = log;
+                    logsContainer.appendChild(div);
+                });
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+            }
+        }
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+        window.onclick = function(e) { if (e.target == modal) closeModal(); }
+    </script>
+</body>
+</html>
